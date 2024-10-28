@@ -94,7 +94,7 @@ class _PagebankState extends State<Pagebank> {
                             Icon(Icons.credit_card, color: Colors.black),
                             const SizedBox(width: 8),
                             Text(
-                              'Meus cartões',
+                              'Meus Cartões',
                               style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                           ],
