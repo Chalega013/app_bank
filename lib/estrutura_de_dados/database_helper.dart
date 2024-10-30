@@ -10,7 +10,6 @@ class DatabaseHelper {
   Database? _database;
 
   Future<Database?> get db async {
-    // ignore: unnecessary_null_comparison
     if (_database != null) {
       return _database;
     }
@@ -78,19 +77,17 @@ class DatabaseHelper {
   }
 
   Future<bool> validateUser(String cpf, String senha) async {
-  final db = await this.db;
-  final maps = await db!.query(
-    "users",
-    where: "cpf = ? AND senha = ?",
-    whereArgs: [cpf, senha],
-  );
+    cpf = cpf.replaceAll(RegExp(r'\D'), ''); // Normaliza o CPF para apenas dígitos
+    final db = await this.db;
+    final maps = await db!.query(
+      "users",
+      where: "cpf = ? AND senha = ?",
+      whereArgs: [cpf, senha],
+    );
 
-  print("Resultado da consulta: ${maps.isNotEmpty}"); // Adicione esta linha
-  return maps.isNotEmpty;
-}
-
+    print("Resultado da consulta: ${maps.isNotEmpty}");
+    return maps.isNotEmpty;
+  }
 
   getUserByCpf(String cpf) {}
 }
-
-

@@ -25,13 +25,3 @@ int _calculateCheckDigit(List<int> digits) {
   int mod = sum % 11;
   return mod < 2 ? 0 : 11 - mod;
 }
-
-// Teste da função
-void main() {
-  String cpf = "123.456.789-09"; // Exemplo de CPF
-  if (isValidCPF(cpf)) {
-    print("CPF é válido");
-  } else {
-    print("CPF é inválido");
-  }
-}

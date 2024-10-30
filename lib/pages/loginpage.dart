@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/estrutura_de_dados/database_helper.dart';
 import 'package:flutter_application_1/estrutura_de_dados/registeruser.dart';
 import 'package:flutter_application_1/pages/pagebank.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart'; // Importação do pacote
 
-
-class Loginpage extends StatefulWidget {
-  const Loginpage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
-  final TextEditingController _cpfController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _senhaController = TextEditingController();
   final DatabaseHelper _databaseHelper = DatabaseHelper(); // Instância do DatabaseHelper
+  final MaskedTextController _cpfController = MaskedTextController(mask: '000.000.000-00'); // Controlador com máscara para CPF
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _LoginpageState extends State<Loginpage> {
           children: <Widget>[
             Center(
               child: Image.asset(
-                "assets/R-removebg-preview.png",
+                "assets/R-removebg-preview.png", // Imagem do logo ou ícone
                 height: 130,
               ),
             ),
@@ -81,7 +81,7 @@ class _LoginpageState extends State<Loginpage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RegistrationPage(),
+                      builder: (context) => RegistrationPage(), // Navegação para a página de registro
                     ),
                   );
                 },
@@ -93,31 +93,30 @@ class _LoginpageState extends State<Loginpage> {
       ),
     );
   }
-void _validarLogin() async {
-  String cpf = _cpfController.text;
-  String senha = _senhaController.text;
 
-  if (cpf.isEmpty || senha.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("CPF e Senha são obrigatórios")),
-    );
-  } else {
-    print("Validando CPF: $cpf e Senha: $senha"); // Adiciona este print
-    bool isValid = await _databaseHelper.validateUser(cpf, senha);
+  void _validarLogin() async {
+    // Remove máscara para validar CPF
+    String cpf = _cpfController.text.replaceAll('.', '').replaceAll('-', '');
+    String senha = _senhaController.text;
 
-    if (isValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Pagebank()),
+    if (cpf.isEmpty || senha.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("CPF e Senha são obrigatórios")),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("CPF e Senha incorretos")),
-      );
+      print("Validando CPF: $cpf e Senha: $senha");
+      bool isValid = await _databaseHelper.validateUser(cpf, senha);
+
+      if (isValid) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Pagebank()), // Navegação para a página principal após login
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("CPF e Senha incorretos")),
+        );
+      }
     }
   }
 }
-
-
-      }
-

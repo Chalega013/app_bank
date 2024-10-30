@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/loginpage.dart';
+import 'package:flutter_application_1/pages/perfiluser.dart';
 
 class Pagebank extends StatefulWidget {
   const Pagebank({super.key});
@@ -32,7 +33,7 @@ class _PagebankState extends State<Pagebank> {
                 onPressed: () {},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text(
                       'Conta',
                       style: TextStyle(color: Colors.black, fontSize: 26, fontWeight: FontWeight.bold),
@@ -90,9 +91,9 @@ class _PagebankState extends State<Pagebank> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(Icons.credit_card, color: Colors.black),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8),
                             Text(
                               'Meus Cartões',
                               style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
@@ -118,7 +119,7 @@ class _PagebankState extends State<Pagebank> {
                         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.purple)),
                     _buildRectangularButton("Conheça Nubank vida:", "Seguro e simples", "Cabe no seu bolso",
                         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.purple)),
-                    _buildRectangularButton("Shopping:", "Não perca nossas ofertas!", "Venha conhecer", 
+                    _buildRectangularButton("Shopping:", "Não perca nossas ofertas!", "Venha conhecer",
                         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.purple)),
                   ],
                 ),
@@ -143,19 +144,19 @@ class _PagebankState extends State<Pagebank> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Icon(Icons.credit_card, color: Colors.black),
-                              const SizedBox(width: 8),
-                              const Text(
+                              SizedBox(width: 8),
+                              Text(
                                 "Cartão de crédito",
                                 style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
-                              const SizedBox(height: 9),
-                              const Text(
+                              SizedBox(height: 9),
+                              Text(
                                 "Fatura atual: R\$ 2.000",
                                 style: TextStyle(fontSize: 14, color: Colors.black54),
                               ),
-                              const Text(
+                              Text(
                                 "Limite disponível: R\$ 1.200",
                                 style: TextStyle(fontSize: 14, color: Colors.black54, fontWeight: FontWeight.bold),
                               ),
@@ -172,7 +173,7 @@ class _PagebankState extends State<Pagebank> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 115, left: 20),
-            child: Text(
+            child: const Text(
               "Olá, Guilherme",
               style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
             ),
@@ -182,7 +183,7 @@ class _PagebankState extends State<Pagebank> {
             left: 15,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Loginpage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: const Text("←"),
               style: ElevatedButton.styleFrom(
@@ -233,7 +234,14 @@ class _PagebankState extends State<Pagebank> {
 
   Widget _buildMiniButton(IconData icon) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        if (icon == Icons.account_circle) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PerfilPage()),
+          );
+        }
+      },
       child: Icon(icon, size: 20, color: Colors.white),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
