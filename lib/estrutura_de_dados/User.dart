@@ -1,6 +1,7 @@
 class User {
    int? id;           // ID do usuário
   String? cpf;       // CPF do usuário
+  String? nome;      // Nome do usuário
    String? senha;     // Senha do usuário
 
   User({this.id, required this.cpf, required this.senha});
@@ -8,6 +9,7 @@ class User {
   User.fromMap(Map<String , dynamic> map) {
     id = map["id"];
     cpf = map["cpf"];
+    nome = map["nome"];
     senha = map["senha"];
   }
 
@@ -15,6 +17,7 @@ class User {
     return {
       "id": id,
       "cpf": cpf,
+      "nome": nome,
       "senha": senha,
     };
   }

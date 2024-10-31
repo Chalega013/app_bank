@@ -12,14 +12,16 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   // Declarando o tipo explicitamente como MaskedTextController
   final MaskedTextController _cpfController = MaskedTextController(mask: '000.000.000-00');
+  final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   final DatabaseHelper _databaseHelper = DatabaseHelper();
 
   void _registerUser() async {
+    String nome = _nomeController.text;
     String cpf = _cpfController.text;
     String senha = _senhaController.text;
 
-    if (cpf.isEmpty || senha.isEmpty) {
+    if (cpf.isEmpty || nome.isEmpty || senha.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("CPF e Senha são obrigatórios")),
       );
@@ -57,6 +59,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               controller: _cpfController,
               decoration: const InputDecoration(labelText: "CPF"),
               keyboardType: TextInputType.number,
+            ),
+            TextField( controller: _nomeController, 
+              decoration: const InputDecoration(labelText: "Nome"),
+              
+              
             ),
             TextField(
               controller: _senhaController,
